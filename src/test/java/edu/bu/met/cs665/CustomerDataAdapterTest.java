@@ -8,7 +8,11 @@
 
 package edu.bu.met.cs665;
 
-import edu.bu.met.cs665.models.*;
+import edu.bu.met.cs665.models.Customer;
+import edu.bu.met.cs665.models.CustomerDataAdapter;
+import edu.bu.met.cs665.models.CustomerDataViaHttps;
+import edu.bu.met.cs665.models.CustomerDataViaUsb;
+import edu.bu.met.cs665.models.NewSystemImplementation;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,6 +43,38 @@ public class CustomerDataAdapterTest {
 
         assertNotNull(customer);
         assertEquals(1, customer.getId());
-        assertEquals("John Doe", customer.getName());
+        assertEquals("Newton", customer.getName());
+    }
+
+    /**
+     * Tests the adapter with a different customer ID.
+     */
+    @Test
+    public void testGetCustomerViaUsbWithDifferentId() {
+        CustomerDataViaHttps newSystem = new NewSystemImplementation();
+        CustomerDataViaUsb adapter = new CustomerDataAdapter(newSystem);
+
+        // This should call the getCustomerViaHttps method of the new system with a different ID
+        Customer customer = adapter.getCustomerViaUsb(2);
+
+        assertNotNull(customer);
+        assertEquals(2, customer.getId());
+        assertEquals("Michael", customer.getName());
+    }
+
+    /**
+     * Tests the adapter with an unknown customer ID.
+     */
+    @Test
+    public void testGetCustomerViaUsbWithUnknownId() {
+        CustomerDataViaHttps newSystem = new NewSystemImplementation();
+        CustomerDataViaUsb adapter = new CustomerDataAdapter(newSystem);
+
+        // This should call the getCustomerViaHttps method of the new system with an unknown ID
+        Customer customer = adapter.getCustomerViaUsb(3);
+
+        assertNotNull(customer);
+        assertEquals(3, customer.getId());
+        assertEquals("Alice", customer.getName());
     }
 }

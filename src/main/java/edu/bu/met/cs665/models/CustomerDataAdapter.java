@@ -3,12 +3,15 @@
  * Course: CS-665 Software Designs & Patterns
  * Date: 11/02/2024
  * File Name: CustomerDataAdapter.java
- * Description: This class adapts the CustomerDataViaHttps interface to the CustomerDataViaUsb interface.
+ * Description: This class adapts CustomerDataViaHttps to be used as CustomerDataViaUsb.
  */
+
 package edu.bu.met.cs665.models;
 
+import edu.bu.met.cs665.models.Customer;
+
 public class CustomerDataAdapter implements CustomerDataViaUsb {
-    private final CustomerDataViaHttps newSystem;
+    private CustomerDataViaHttps newSystem;
 
     /**
      * Constructor to initialize the adapter with the new system implementation.
@@ -19,11 +22,6 @@ public class CustomerDataAdapter implements CustomerDataViaUsb {
         this.newSystem = newSystem;
     }
 
-    /**
-     * Prints customer information based on customer ID.
-     *
-     * @param customerId the ID of the customer to be printed
-     */
     @Override
     public void printCustomer(int customerId) {
         newSystem.printCustomer(customerId);
